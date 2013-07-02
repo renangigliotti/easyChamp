@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  championship_id: 1
+  team1_id: 1
+  placar1: 1
+  team2_id: 1
+  placar2: 1
+  phase_id: 1
+  groups: MyString
+  stage: MyString
+
+two:
+  championship_id: 1
+  team1_id: 1
+  placar1: 1
+  team2_id: 1
+  placar2: 1
+  phase_id: 1
+  groups: MyString
+  stage: MyString

@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-RenanCodeCom::Application.config.secret_token = '56dd657002a5e234fc9c65eab369724108bb4e44dabafe73d06ae5e3c44ba9c7efa35ce6580ed7c555f04bee230bd15f895aea2cf7fc92afa97992b04e7dfa07'
+RenanCodeCom::Application.config.secret_token = '9953c2d97bdc4a59a8a0e81a3782ca03049dcecd646c9a61ec3a30cc0892707907eeca64dbdb442029769c3ee971028e32fd06d7b5ea8cfe965b334725fdb277'

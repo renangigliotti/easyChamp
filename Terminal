@@ -1,0 +1,20 @@
+rails g model phase name:string
+rails g model rule name:string
+
+rails g scaffold team name:string logo:string abbreviation:string
+rails g scaffold championship name:string rule_id:integer classification:integer groups:integer
+rails g scaffold game championship_id:integer team1_id:integer placar1:integer team2_id:integer placar2:integer phase_id:integer groups:string stage:string
+
+rails g controller dashboard show
+
+rake db:migrate
+
+rails g bootstrap:install static
+rails g bootstrap:layout application fixed
+
+rails g bootstrap:themed teams -f
+rails g bootstrap:themed championships -f
+rails g bootstrap:themed games -f
+
+#rails g devise:install
+#rails g devise:views

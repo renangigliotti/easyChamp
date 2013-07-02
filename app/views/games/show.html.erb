@@ -1,0 +1,37 @@
+<%- model_class = Game -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:id) %>:</strong></dt>
+  <dd><%= @game.id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:championship_id) %>:</strong></dt>
+  <dd><%= @game.championship_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:team1_id) %>:</strong></dt>
+  <dd><%= @game.team1_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:placar1) %>:</strong></dt>
+  <dd><%= @game.placar1 %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:team2_id) %>:</strong></dt>
+  <dd><%= @game.team2_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:placar2) %>:</strong></dt>
+  <dd><%= @game.placar2 %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:phase_id) %>:</strong></dt>
+  <dd><%= @game.phase_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:groups) %>:</strong></dt>
+  <dd><%= @game.groups %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:stage) %>:</strong></dt>
+  <dd><%= @game.stage %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              games_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_game_path(@game), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              game_path(@game),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

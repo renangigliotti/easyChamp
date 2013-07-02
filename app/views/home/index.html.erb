@@ -1,2 +1,8 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h3>Campeonatos</h3>
+<div class="well sidebar-nav">
+  <ul class="nav nav-list">
+    <% @championships.each do |c| %>
+       <li><%= link_to c.name, dashboard_path(c)  %></li>
+    <% end %>
+  </ul>
+</div>

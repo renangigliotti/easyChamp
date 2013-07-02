@@ -1,0 +1,50 @@
+<% group = nil %>
+
+<% ranking.each do |r| %>
+    <% if !group.nil? && r.groups != group && r.rule_id != 2 %>
+        </tbody>
+      </table>
+    <% end %>
+
+    <% if r.groups != group %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th colspan="9">
+              <center>Grupo <%= r.groups %></center>
+            </th>
+          </tr>
+          <tr>
+            <th colspan="2">Classificação</th>
+            <th>P</th>
+            <th>J</th>
+            <th>V</th>
+            <th>E</th>
+            <th>D</th>
+            <th>GP</th>
+            <th>GC</th>
+            <th>SG</th>
+          </tr>
+        </thead>
+        <tbody>
+    <% end %>
+        <tr>
+          <td><%= r.position %></td>
+          <td><%= r.team_name %></td>
+          <td><%= r.points %></td>
+          <td><%= r.games %></td>
+          <td><%= r.victory %></td>
+          <td><%= r.draw %></td>
+          <td><%= r.defeat %></td>
+          <td><%= r.gols_for %></td>
+          <td><%= r.gols_against %></td>
+          <td><%= r.gols_balance %></td>
+        </tr>
+        
+    <% group = r.groups %>
+<% end %>
+
+<% if !group.nil? || ranking[1].rule_id == 2 %>
+      </tbody>
+  </table>
+<% end %>

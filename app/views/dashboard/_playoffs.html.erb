@@ -1,0 +1,36 @@
+<% stage = nil %>
+  <% games.each do |g| %>
+  <% if !stage.nil? && g.stage != stage %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <% if g.stage != stage %>
+    <table class="table table-striped">
+      <thead>
+        <tr >
+          <th colspan="7">
+            <center><%= g.stage %></center>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+  <% end %>
+        <%= form_tag("updategame", :method => "post") do %>
+          <tr>
+              <td><%= hidden_field_tag(:game_id, g.id) %> <%= label_tag(:game_id, g.id) %> </td>
+              <td><%= image_tag(g.team1.logo) unless g.team1.nil? %> <%= label_tag(:team1, g.team1.abbreviation) unless g.team1.nil? %></td>
+              <td><%= text_field_tag(:placar1, g.placar1) %></td>
+              <td>  x  </td>
+              <td><%= text_field_tag(:placar2, g.placar2) %></td>
+              <td><%= image_tag(g.team2.logo) unless g.team2.nil? %> <%= label_tag(:team2, g.team2.abbreviation) unless g.team2.nil? %> </td>
+              <td><%= submit_tag("Ok") %></td>
+          </tr>
+        <% end %>
+  <% stage = g.stage %>
+<% end %>
+
+<% if !stage.nil? %>
+    </tbody>
+  </table>
+<% end %>

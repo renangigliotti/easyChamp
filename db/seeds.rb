@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Rule.create(name: "Grupos")
+Rule.create(name: "Pontos Corridos")
+Rule.create(name: "Torneio")
+
+Phase.create(name: "Classificacao")
+Phase.create(name: "Eliminatoria")
