@@ -19,7 +19,7 @@
         <%= form_tag("updategame", :method => "post") do %>
           <%= hidden_field_tag(:game_id, g.id) %>
           <tr>
-              <td><%= label_tag(:game_id, g.id) unless !g.team1.nil? %> </td>
+              <td><%= label_tag(:game_id, g.id) %> </td>
               <td><%= image_tag(g.team1.logo) unless g.team1.nil? %> <%= label_tag(:team1, g.team1.abbreviation) unless g.team1.nil? %></td>
               <td><%= number_field_tag(:placar1, g.placar1, maxlength: 2, placeholder: team_description(g, 1), in: 0...99, size: 5) %></td>
               <td>  x  </td>

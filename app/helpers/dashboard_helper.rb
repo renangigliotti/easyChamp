@@ -9,21 +9,35 @@ module DashboardHelper
       	  return "Primeiro do Grupo " + game.duel1[1].to_s
       	elsif game.duel1[0].to_i == 2
       	  return "Segundo do Grupo " + game.duel1[1].to_s
+        elsif game.duel1[0].to_i == 3
+          return "Terceiro do Grupo " + game.duel1[1].to_s
       	end
       else
-      	return "Vencedor do jogo " + game.duel1.to_s
+        if game.duel1.to_i < 0
+          duel1 = game.duel1.to_i * -1
+          return "Perdedor do jogo " + duel1.to_s
+        else
+          return "Vencedor do jogo " + game.duel1.to_s
+        end
       end
     elsif index == 2 && !game.team2.nil?
       return game.team2.name
     else
-      if (game.duel2.include? "A") || (game.duel2.include? "B") || (game.duel2.include? "C") || (game.duel2.include? "D") || (game.duel2.include? "E") || (game.duel2.include? "F") || (game.duel2.include? "G") 
+      if (game.duel2.include? "A") || (game.duel2.include? "B") || (game.duel2.include? "C") || (game.duel2.include? "D") || (game.duel2.include? "E") || (game.duel2.include? "F") || (game.duel2.include? "G") || (game.duel2.include? "H") || (game.duel2.include? "I") || (game.duel2.include? "J") || (game.duel2.include? "K") || (game.duel2.include? "L") || (game.duel2.include? "M") 
       	if game.duel2[0].to_i == 1
       	  return "Primeiro do Grupo " + game.duel2[1].to_s
       	elsif game.duel2[0].to_i == 2
       	  return "Segundo do Grupo " + game.duel2[1].to_s
+        elsif game.duel2[0].to_i == 3
+          return "Terceiro do Grupo " + game.duel2[1].to_s
       	end
 	  else
-	  	return "Vencedor do jogo " + game.duel2.to_s
+      if game.duel2.to_i < 0
+        duel2 = game.duel2.to_i * -1
+        return "Perdedor do jogo " + duel2.to_s
+      else
+        return "Vencedor do jogo " + game.duel2.to_s
+      end	  	
 	  end
     end
   end
