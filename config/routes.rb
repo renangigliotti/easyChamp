@@ -4,7 +4,7 @@ RenanCodeCom::Application.routes.draw do
 
   match "dashboard/updategame" => "dashboard#updategame", as: "dashboard_updategame", method: :get
 
-  get '/home/index', to: 'home#index', as: 'home'
+  match "home/index" => "home#index", as: "home_index", method: :get
 
   get '/dashboard/:id', to: 'dashboard#show', as: 'dashboard'
 
