@@ -44,7 +44,7 @@ class Ranking
       ranking << rank
     end
 
-    games = Game.where("games.championship_id = ? AND games.placar1 IS NOT NULL AND games.placar2 IS NOT NULL", champ.id)
+    games = Game.where("games.championship_id = ? AND games.placar1 IS NOT NULL AND games.placar2 IS NOT NULL AND games.phase_id = ?", champ.id, 1)
     games.each do |g|
       r1 = find_team(ranking, g.team1_id)
       r2 = find_team(ranking, g.team2_id)

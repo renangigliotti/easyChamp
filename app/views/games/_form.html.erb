@@ -5,6 +5,8 @@
   <%= f.input :phase_id, collection: Phase.all, prompt: "Select your phase" %>
   <%= f.input :stage %>
   <%= f.input :groups %>
+  <%= f.input :duel1 %>
+  <%= f.input :duel2 %>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

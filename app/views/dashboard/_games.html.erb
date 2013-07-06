@@ -9,22 +9,22 @@
     <table class="table table-striped">
       <thead>
         <tr >
-          <th colspan="7">
+          <th colspan="6">
             <center><%= g.stage %></center>
           </th>
         </tr>
       </thead>
       <tbody>
   <% end %>
-        <%= form_tag("updategame", :method => "post") do %>
+        <%= form_tag('updategame', :method => "post") do %>
+          <%= hidden_field_tag(:game_id, g.id) %>
           <tr>
-              <td><%= hidden_field_tag(:game_id, g.id) %> <%= label_tag(:game_id, g.id) %> </td>
-              <td><%= image_tag(g.team1.logo) %> <%= label_tag(:team1, g.team1.abbreviation) %></td>
-              <td><%= text_field_tag(:placar1, g.placar1) %></td>
-              <td>  x  </td>
-              <td><%= text_field_tag(:placar2, g.placar2) %></td>
-              <td><%= image_tag(g.team2.logo) %> <%= label_tag(:team2, g.team2.abbreviation) %> </td>
-              <td><%= submit_tag("Ok") %></td>
+            <td><%= image_tag(g.team1.logo) %> <%= label_tag(:team1, g.team1.abbreviation) %></td>
+            <td><%= number_field_tag(:placar1, g.placar1, maxlength: 2, placeholder: g.team1.name, in: 0...99, size: 5) %></td>
+            <td>  x  </td>
+            <td><%= number_field_tag(:placar2, g.placar2, maxlength: 2, placeholder: g.team2.name, in: 0...99, size: 5) %></td>
+            <td><%= image_tag(g.team2.logo) %> <%= label_tag(:team2, g.team2.abbreviation) %> </td>
+            <td><%= button_tag("Ok", :class => 'btn btn-primary') %></td>
           </tr>
         <% end %>
   <% stage = g.stage %>
