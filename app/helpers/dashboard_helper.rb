@@ -11,6 +11,8 @@ module DashboardHelper
       	  return "Segundo do Grupo " + game.duel1[1].to_s
         elsif game.duel1[0].to_i == 3
           return "Terceiro do Grupo " + game.duel1[1].to_s
+        elsif game.duel1[0].to_i == 3
+          return "Quarto do Grupo " + game.duel1[1].to_s
       	end
       else
         if game.duel1.to_i < 0
@@ -30,6 +32,8 @@ module DashboardHelper
       	  return "Segundo do Grupo " + game.duel2[1].to_s
         elsif game.duel2[0].to_i == 3
           return "Terceiro do Grupo " + game.duel2[1].to_s
+        elsif game.duel2[0].to_i == 3
+          return "Quarto do Grupo " + game.duel2[1].to_s
       	end
 	  else
       if game.duel2.to_i < 0

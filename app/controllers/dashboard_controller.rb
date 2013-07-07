@@ -12,7 +12,11 @@ class DashboardController < ApplicationController
     else
       @games = Game.find_games_perpage(@champ, params[:page])
 
+      logger.debug "GAMES = #{@games.inspect}"
+
       @ranking = Ranking.buildRanking(@champ)
+
+      logger.debug "RANKING = #{@ranking.inspect}"
     end
   end
 
@@ -22,6 +26,8 @@ class DashboardController < ApplicationController
     @game.placar2 = params[:placar2]
     @game.save
 
-    redirect_to :back
+    respond_to do |format|
+      format.html { redirect_to :back, notice: 'Game ' + @game.id.to_s + ' was successfully updated.' }
+    end
   end
 end

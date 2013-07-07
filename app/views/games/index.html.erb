@@ -41,6 +41,8 @@
   </tbody>
 </table>
 
+<%= will_paginate @games, renderer: BootstrapPagination::Rails %>
+
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_game_path,
             :class => 'btn btn-primary' %>

@@ -7,7 +7,8 @@ class Game < ActiveRecord::Base
   belongs_to :championship
 
   def self.find_games_perpage(championship, page)
-    pages = Game.where(:championship_id => championship.id, :stage => "Rodada 1").count
+    stages = Game.select("DISTINCT games.stage").where(:championship_id => championship.id, :phase_id => 1)
+    pages = Game.where(:championship_id => championship.id, :stage => stages[0].stage).count
     
     return Game.where(:championship_id => championship.id, :phase_id => 1).order("games.stage").paginate(:page => page, :per_page => pages)
   end

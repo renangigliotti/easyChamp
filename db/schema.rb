@@ -11,15 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130705154343) do
+ActiveRecord::Schema.define(:version => 20130707081246) do
 
   create_table "championships", :force => true do |t|
     t.string   "name"
     t.integer  "rule_id"
-    t.integer  "classification"
-    t.integer  "groups"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.date     "date_start"
   end
 
   add_index "championships", ["id"], :name => "index_championships_on_id"

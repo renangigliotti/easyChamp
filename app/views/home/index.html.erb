@@ -2,7 +2,7 @@
 <div class="well sidebar-nav">
   <ul class="nav nav-list">
     <% @championships.each do |c| %>
-       <li><%= link_to c.name, dashboard_path(c)  %></li>
+       <li><%= link_to c.name + ' ' + c.date_start.strftime("%d/%m/%Y"), dashboard_path(c)  %> </li>
     <% end %>
   </ul>
 </div>

@@ -2,7 +2,7 @@ class ChampionshipsController < ApplicationController
   # GET /championships
   # GET /championships.json
   def index
-    @championships = Championship.all
+    @championships = Championship.where("").paginate(:page => params[:page], :per_page => 15)
 
     respond_to do |format|
       format.html # index.html.erb

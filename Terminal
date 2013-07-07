@@ -9,6 +9,8 @@ rails g controller dashboard show
 
 rake db:migrate
 
+rails generate simple_form:install --bootstrap
+
 rails g bootstrap:install static
 rails g bootstrap:layout application fixed
 

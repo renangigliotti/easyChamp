@@ -7,8 +7,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:rule_id) %></th>
-      <th><%= model_class.human_attribute_name(:classification) %></th>
-      <th><%= model_class.human_attribute_name(:groups) %></th>
+      <th><%= model_class.human_attribute_name(:date_start) %></th>
       <th></th>
     </tr>
   </thead>
@@ -17,8 +16,7 @@
       <tr>
         <td><%= link_to championship.name, championship_path(championship) %></td>
         <td><%= championship.rule.name unless championship.rule.nil? %></td>
-        <td><%= championship.classification %></td>
-        <td><%= championship.groups %></td>
+        <td><%= championship.date_start.strftime("%d/%m/%Y") unless championship.date_start.nil? %></td>
         <td><%= link_to t('.edit', :default => t("helpers.links.edit")), edit_championship_path(championship), :class => 'btn btn-mini' %>
             <%= link_to t('.destroy', :default => t("helpers.links.destroy")), championship_path(championship), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-mini btn-danger' %>
         </td>
@@ -26,6 +24,8 @@
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate @games, renderer: BootstrapPagination::Rails %>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_championship_path,
