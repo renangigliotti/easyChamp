@@ -2,7 +2,7 @@ class Ranking
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :position, :position_old, :groups, :points, :team_id, :team_name, :games, :victory, :draw, :defeat, :gols_for, :gols_against, :gols_balance, :rule_id
+  attr_accessor :position, :position_old, :groups, :points, :team_id, :team_name, :team_logo, :games, :victory, :draw, :defeat, :gols_for, :gols_against, :gols_balance, :rule_id
 
   public
 
@@ -11,14 +11,14 @@ class Ranking
   end
 
   def self.buildRanking(champ)
-    teams = Game.find_by_sql("SELECT DISTINCT team.team_id, team.team_name, team.groups
-                                FROM (SELECT DISTINCT games.team1_id AS team_id, teams.name as team_name, games.groups
+    teams = Game.find_by_sql("SELECT DISTINCT team.team_id, team.team_name, team.team_logo, team.groups
+                                FROM (SELECT DISTINCT games.team1_id AS team_id, teams.name as team_name, teams.logo as team_logo, games.groups
                                         FROM games, teams
                                        WHERE games.championship_id = " + champ.id.to_s + "
                                          AND games.phase_id = " + 1.to_s + "
                                          AND teams.id = games.team1_id
                                       UNION
-                                      SELECT DISTINCT games.team2_id AS team_id, teams.name as team_name, games.groups
+                                      SELECT DISTINCT games.team2_id AS team_id, teams.name as team_name, teams.logo as team_logo, games.groups
                                         FROM games, teams
                                        WHERE games.championship_id = " + champ.id.to_s + "
                                          AND games.phase_id = " + 1.to_s + "
@@ -31,6 +31,7 @@ class Ranking
       rank.rule_id = champ.rule_id
       rank.team_id = t.team_id
       rank.team_name = t.team_name
+      rank.team_logo = t.team_logo
       rank.groups = t.groups
       rank.position = 0
       rank.games = 0

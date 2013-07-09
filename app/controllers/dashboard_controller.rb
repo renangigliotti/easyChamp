@@ -11,13 +11,9 @@ class DashboardController < ApplicationController
       @games = Game.find_games_playoffs(@champ)
     else
       @games = Game.find_games_perpage(@champ, params[:page])
-
-      logger.debug "GAMES = #{@games.inspect}"
-
-      @ranking = Ranking.buildRanking(@champ)
-
-      logger.debug "RANKING = #{@ranking.inspect}"
     end
+
+    @ranking = Ranking.buildRanking(@champ)
   end
 
   def updategame

@@ -1,40 +1,26 @@
 <div class="page-header">
   <h1 align="center"><%= @champ.name %></h1>
 </div>
-  <!--RULE_ID >>  1=GRUPO    2=PONTO CORRIDO    3=TORNEIO -->
-    <% if @champ.rule_id == 1 && params[:phase] == '2' %>
-      <div class="navbar-inner">
-        <div class="span7">
-          <%= render :partial => 'playoffs', :locals => {:games => @games} %>
-          <center>
-            <div class="pagination">
-              <ul>
-                <li><%= link_to "Classificação" %></li>
-                <li><%= link_to "Eliminatórias", :pahse => "2" %></li>
-              </ul>
-            </div>
-          </center>
+<div class="navbar-inner">
+  <br>
+  <div class="span4">
+      <%= render :partial => 'ranking', :locals => {:ranking => @ranking} %>
+  </div>
+  <div class="span5">
+    <%= render :partial => 'games', :locals => {:games => @games} %> 
+    <center>
+      <% if @champ.rule_id != 3 && params[:phase] != '2' %>
+        <%= will_paginate @games, renderer: BootstrapPagination::Rails %>
+      <% end %>
+      <% if @champ.rule_id == 1 %>
+        <div class="pagination">
+          <ul>
+            <li><%= link_to "Classificação" %></li>
+            <li><%= link_to "Eliminatórias", :phase => "2" %></li>
+          </ul>
         </div>
-      </div>
-    <% else %>
-      <div class="navbar-inner">
-        <br>
-        <div class="span4">
-            <%= render :partial => 'ranking', :locals => {:ranking => @ranking} %>
-        </div>
-        <div class="span7">
-          <%= render :partial => 'games', :locals => {:games => @games} %> 
-          <center>
-            <%= will_paginate @games, renderer: BootstrapPagination::Rails %>
-            <% if @champ.rule_id == 1 %>
-              <div class="pagination">
-                <ul>
-                  <li><%= link_to "Classificação" %></li>
-                  <li><%= link_to "Eliminatórias", :phase => "2" %></li>
-                </ul>
-              </div>
-              <% end %>
-          </center>
-        </div>
-      </div>
-  <% end %>
+        <% end %>
+    </center>
+  </div>
+</div>
+  
