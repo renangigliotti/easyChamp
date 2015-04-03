@@ -6,10 +6,10 @@
   <% if @champ.rule_id == 3  %>
     <%= render :partial => 'games', :locals => {:games => @games} %> 
   <% else %>
-    <div class="span4">
+    <div class="span7">
         <%= render :partial => 'ranking', :locals => {:ranking => @ranking} %>
     </div>
-    <div class="span5">
+    <div class="span4">
       <%= render :partial => 'games', :locals => {:games => @games} %> 
       <center>
         <% if @champ.rule_id != 3 && params[:phase] != '2' %>

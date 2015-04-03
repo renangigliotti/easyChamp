@@ -1,7 +1,7 @@
 <% stage = nil %>
 <% games.each do |g| %>
   <div class="row">
-    <div class="span5">
+    <div class="span4">
       <% if g.stage != stage %>
         <center><h6> <%= g.stage %> </h6></center>
       <% end %>
@@ -10,16 +10,16 @@
           <%= hidden_field_tag(:game_id, g.id) %> 
           <%= g.id.to_s %> |
           <% if g.team1.nil? %>
-            <%= number_field_tag(:placar1, g.placar1, placeholder: team_description(g, 1), maxlength: 2, in: 0...99, style: 'width: 110px;') %>
+            <%= text_field_tag(:placar1, g.placar1, placeholder: team_description(g, 1), maxlength: 2, in: 0...99, style: 'width: 20px;') %>
           <% else %>
             <%= image_tag(g.team1.logo, alt: g.team1.name, height: 30, width: 30) unless g.team1.nil? %> <%= g.team1.abbreviation.to_s %>
-            <%= number_field_tag(:placar1, g.placar1, maxlength: 2, in: 0...99, style: 'width: 45px;') %>
+            <%= text_field_tag(:placar1, g.placar1, maxlength: 2, in: 0...99, style: 'width: 20px;') %>
           <% end %>
           <%= "x" %>
           <% if g.team2.nil? %>
-            <%= number_field_tag(:placar2, g.placar2, placeholder: team_description(g, 2), maxlength: 2, in: 0...99, style: 'width: 110px;') %>
+            <%= text_field_tag(:placar2, g.placar2, placeholder: team_description(g, 2), maxlength: 2, in: 0...99, style: 'width: 20px;') %>
           <% else %>
-            <%= number_field_tag(:placar2, g.placar2, maxlength: 2, in: 0...99, style: 'width: 45px;') %>
+            <%= text_field_tag(:placar2, g.placar2, maxlength: 2, in: 0...99, style: 'width: 20px;') %>
             <%= image_tag(g.team2.logo, alt: g.team2.name, height: 30, width: 30) unless g.team2.nil? %> <%= g.team2.abbreviation.to_s %>
           <% end %>
           <%= button_tag("Ok", :class => 'btn btn-primary') %>
