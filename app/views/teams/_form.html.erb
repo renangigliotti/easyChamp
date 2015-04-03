@@ -1,6 +1,6 @@
 <%= simple_form_for @team, :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.input :name %>
-  <%= f.input :logo %>
+  <%= f.input :logo, collection: @logos, prompt: "Select your logo" %>
   <%= f.input :abbreviation %>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>

@@ -25,7 +25,7 @@
   </tbody>
 </table>
 
-<%= will_paginate @games, renderer: BootstrapPagination::Rails %>
+<%= will_paginate @games %>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_championship_path,

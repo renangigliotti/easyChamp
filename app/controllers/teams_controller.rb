@@ -25,6 +25,8 @@ class TeamsController < ApplicationController
   # GET /teams/new.json
   def new
     @team = Team.new
+    #@logos = Dir.glob("app/assets/images/*.png")
+    load_logos
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +37,7 @@ class TeamsController < ApplicationController
   # GET /teams/1/edit
   def edit
     @team = Team.find(params[:id])
+    load_logos
   end
 
   # POST /teams
@@ -79,5 +82,15 @@ class TeamsController < ApplicationController
       format.html { redirect_to teams_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def load_logos
+    @logos = Array.new
+    Dir.glob("app/assets/images/*.png").each do |l|
+      @logos << l.split('/').last
+    end
+    @logos.sort!
   end
 end

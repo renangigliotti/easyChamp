@@ -3,24 +3,29 @@
 </div>
 <div class="navbar-inner">
   <br>
-  <div class="span4">
-      <%= render :partial => 'ranking', :locals => {:ranking => @ranking} %>
-  </div>
-  <div class="span5">
+  <% if @champ.rule_id == 3  %>
     <%= render :partial => 'games', :locals => {:games => @games} %> 
-    <center>
-      <% if @champ.rule_id != 3 && params[:phase] != '2' %>
-        <%= will_paginate @games, renderer: BootstrapPagination::Rails %>
-      <% end %>
-      <% if @champ.rule_id == 1 %>
-        <div class="pagination">
-          <ul>
-            <li><%= link_to "Classificação" %></li>
-            <li><%= link_to "Eliminatórias", :phase => "2" %></li>
-          </ul>
-        </div>
+  <% else %>
+    <div class="span4">
+        <%= render :partial => 'ranking', :locals => {:ranking => @ranking} %>
+    </div>
+    <div class="span5">
+      <%= render :partial => 'games', :locals => {:games => @games} %> 
+      <center>
+        <% if @champ.rule_id != 3 && params[:phase] != '2' %>
+            <%= will_paginate @games %>
         <% end %>
-    </center>
-  </div>
+        <% if @champ.rule_id == 1 %>
+          <div class="pagination">
+            <ul>
+              <li><%= link_to "Classificação" %></li>
+              <li><%= link_to "Eliminatórias", :phase => "2" %></li>
+            </ul>
+          </div>
+          <% end %>
+      </center>
+    </div>
+
+  <% end %>
 </div>
   

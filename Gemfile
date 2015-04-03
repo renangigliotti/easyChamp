@@ -5,7 +5,7 @@ gem 'rails', '3.2.13'
 gem 'mysql2'
 gem 'jquery-rails'
 gem 'simple_form'
-gem 'will_paginate-bootstrap'
+gem 'will_paginate', '~> 3.0.6'
 gem 'devise'
 
 group :assets do
