@@ -3,6 +3,7 @@ RenanCodeCom::Application.routes.draw do
   
   resources :championships do
   	resources :games
+  	
   	resources :teams
 
     post "dashboard" => "dashboard#updategame", as: "dashboard"
