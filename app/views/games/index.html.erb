@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:championship_id) %></th>
+      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:team1_id) %></th>
       <th><%= model_class.human_attribute_name(:placar1) %></th>
       <th><%= model_class.human_attribute_name(:team2_id) %></th>
@@ -20,6 +21,7 @@
     <% @games.each do |game| %>
       <tr>
         <td><%= link_to game.championship.name, championship_game_path(@championship, game) %></td>
+        <td><%= link_to game.id, championship_game_path(@championship, game) %></td>
         <td><%= game.team1.name unless game.team1.nil? %></td>
         <td><%= game.placar1 %></td>
         <td><%= game.team2.name unless game.team2.nil? %></td>
@@ -43,8 +45,9 @@
 
 <%= will_paginate @games %>
 
+<%= link_to t('.back', :default => t("helpers.links.back")),
+            championship_path(@championship), :class => 'btn'  %>          
+
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_championship_game_path(@championship),
             :class => 'btn btn-primary' %>
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              championship_path(@championship), :class => 'btn'  %>          

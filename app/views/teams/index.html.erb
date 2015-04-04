@@ -5,6 +5,8 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th><%= model_class.human_attribute_name(:championship_id) %></th>
+      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:logo) %></th>
       <th><%= model_class.human_attribute_name(:abbreviation) %></th>
@@ -14,6 +16,8 @@
   <tbody>
     <% @teams.each do |team| %>
       <tr>
+        <td><%= link_to team.championship.name, championship_team_path(@championship, team) %></td>
+        <td><%= link_to team.id, championship_team_path(@championship, team) %></td>
         <td><%= link_to team.name, championship_team_path(@championship, team) %></td>
         <td><%= image_tag(team.logo, alt: team.name, height: 30, width: 30) unless team.logo.empty? %></td>
         <td><%= team.abbreviation %></td>
@@ -27,8 +31,8 @@
 
 <%= will_paginate @games %>
 
+<%= link_to t('.back', :default => t("helpers.links.back")),
+            championship_path(@championship), :class => 'btn'  %>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_championship_team_path(@championship),
             :class => 'btn btn-primary' %>
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              championship_path(@championship), :class => 'btn'  %>

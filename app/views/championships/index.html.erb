@@ -18,11 +18,11 @@
         <td><%= championship.rule.name unless championship.rule.nil? %></td>
         <td><%= championship.date_start.strftime("%d/%m/%Y") unless championship.date_start.nil? %></td>
         <td>
-          <%= link_to t('.dashboard', :default => t("helpers.links.dashboard")), championship_dashboard_path(championship), :class => 'btn btn-mini' %>
-          <%= link_to t('.show', :default => t("helpers.links.show")), championship_path(championship), :class => 'btn btn-mini' %>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_championship_path(championship), :class => 'btn btn-mini' %>
-            <%= link_to t('.destroy', :default => t("helpers.links.destroy")), championship_path(championship), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-mini btn-danger' %>
+          <%= link_to glyph(:list), championship_dashboard_path(championship), :class => 'btn btn-mini', :title => 'Dashboard' %>
+          <%= link_to glyph(:home), championship_path(championship), :class => 'btn btn-mini', :title => 'Mostrar' %>
+          <%= link_to glyph(:edit),
+              edit_championship_path(championship), :class => 'btn btn-mini', :title => 'Editar' %>
+            <%= link_to glyph(:trash), championship_path(championship), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-mini btn-danger', :title => 'Remover' %>
         </td>
       </tr>
     <% end %>

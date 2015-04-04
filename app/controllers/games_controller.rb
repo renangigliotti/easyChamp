@@ -62,7 +62,7 @@ class GamesController < ApplicationController
   # PUT /games/1.json
   def update
     @championship = Championship.find(params[:championship_id])
-    @game = Game.find(params[:id])
+    @game = @championship.games.find(params[:id])
 
     respond_to do |format|
       if @game.update_attributes(params[:game])
@@ -79,7 +79,7 @@ class GamesController < ApplicationController
   # DELETE /games/1.json
   def destroy
     @championship = Championship.find(params[:championship_id])
-    @game = Game.find(params[:id])
+    @game = @championship.games.find(params[:id])
     @game.destroy
 
     respond_to do |format|

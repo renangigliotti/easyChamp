@@ -1,12 +1,10 @@
 <%= simple_form_for [@championship, @team], :html => { :class => 'form-horizontal' } do |f| %>
-	
 	  <%= f.input :name %>
 	  <%= f.input :logo, collection: @logos, prompt: "Select your logo" %>
 	  <%= f.input :abbreviation %>
 	  <div class="form-actions">
-	    <%= f.button :submit, :class => 'btn-primary' %>
-	    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+	    <%= link_to t('.back', :default => t("helpers.links.back")),
 	                championship_teams_path(@championship), :class => 'btn' %>
-	  </div>
- 
+	    <%= f.button :submit, :class => 'btn-primary' %>
+	  </div> 
 <% end %>
