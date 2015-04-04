@@ -19,7 +19,7 @@
   <tbody>
     <% @games.each do |game| %>
       <tr>
-        <td><%= link_to game.championship.name, game_path(game) %></td>
+        <td><%= link_to game.championship.name, championship_game_path(@championship, game) %></td>
         <td><%= game.team1.name unless game.team1.nil? %></td>
         <td><%= game.placar1 %></td>
         <td><%= game.team2.name unless game.team2.nil? %></td>
@@ -29,9 +29,9 @@
         <td><%= game.stage %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_game_path(game), :class => 'btn btn-mini' %>
+                      edit_championship_game_path(@championship, game), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      game_path(game),
+                      championship_game_path(@championship, game),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
@@ -44,5 +44,7 @@
 <%= will_paginate @games %>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_game_path,
+            new_championship_game_path(@championship),
             :class => 'btn btn-primary' %>
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              championship_path(@championship), :class => 'btn'  %>          

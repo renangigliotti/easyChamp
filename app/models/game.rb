@@ -1,5 +1,5 @@
 class Game < ActiveRecord::Base
-  attr_accessible :championship_id, :groups, :phase_id, :placar1, :placar2, :stage, :team1_id, :team2_id, :duel1, :duel2
+  attr_accessible :championships_attributes, :championship_id, :groups, :phase_id, :placar1, :placar2, :stage, :team1_id, :team2_id, :duel1, :duel2
   
   belongs_to :team1, :foreign_key => "team1_id", :class_name => "Team"
   belongs_to :team2, :foreign_key => "team2_id", :class_name => "Team"

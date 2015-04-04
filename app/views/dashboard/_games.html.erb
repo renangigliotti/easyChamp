@@ -6,7 +6,7 @@
         <center><h6> <%= g.stage %> </h6></center>
       <% end %>
       <div class="well sidebar-nav">
-        <%= form_tag("updategame", :method => "post", :class => "form-inline") do %>
+        <%= form_tag(championship_dashboard_path(championship), :method => "post", :class => "form-inline") do %>
           <%= hidden_field_tag(:game_id, g.id) %> 
           <%= g.id.to_s %> |
           <% if g.team1.nil? %>

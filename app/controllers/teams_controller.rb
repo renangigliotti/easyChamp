@@ -2,7 +2,8 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.where("").paginate(:page => params[:page], :per_page => 15)
+    @championship = Championship.find(params[:championship_id])
+    @teams = @championship.teams.where("").paginate(:page => params[:page], :per_page => 15)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +14,8 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
-    @team = Team.find(params[:id])
+    @championship = Championship.find(params[:championship_id])
+    @team = @championship.teams.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,8 +26,8 @@ class TeamsController < ApplicationController
   # GET /teams/new
   # GET /teams/new.json
   def new
-    @team = Team.new
-    #@logos = Dir.glob("app/assets/images/*.png")
+    @championship = Championship.find(params[:championship_id])
+    @team = @championship.teams.build
     load_logos
 
     respond_to do |format|
@@ -36,18 +38,20 @@ class TeamsController < ApplicationController
 
   # GET /teams/1/edit
   def edit
-    @team = Team.find(params[:id])
+    @championship = Championship.find(params[:championship_id])
+    @team = @championship.teams.find(params[:id])
     load_logos
   end
 
   # POST /teams
   # POST /teams.json
   def create
-    @team = Team.new(params[:team])
+    @championship = Championship.find(params[:championship_id])
+    @team = @championship.teams.build(params[:team])
 
     respond_to do |format|
       if @team.save
-        format.html { redirect_to teams_url, notice: 'Team was successfully created.' }
+        format.html { redirect_to championship_teams_url(@championship), notice: 'Team was successfully created.' }
         format.json { render json: @team, status: :created, location: @team }
       else
         format.html { render action: "new" }
@@ -59,11 +63,12 @@ class TeamsController < ApplicationController
   # PUT /teams/1
   # PUT /teams/1.json
   def update
-    @team = Team.find(params[:id])
+    @championship = Championship.find(params[:championship_id])
+    @team = @championship.teams.find(params[:id])
 
     respond_to do |format|
       if @team.update_attributes(params[:team])
-        format.html { redirect_to teams_url, notice: 'Team was successfully updated.' }
+        format.html { redirect_to championship_teams_url(@championship), notice: 'Team was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -75,11 +80,12 @@ class TeamsController < ApplicationController
   # DELETE /teams/1
   # DELETE /teams/1.json
   def destroy
-    @team = Team.find(params[:id])
+    @championship = Championship.find(params[:championship_id])
+    @team = destroy.teams.find(params[:id])
     @team.destroy
 
     respond_to do |format|
-      format.html { redirect_to teams_url }
+      format.html { redirect_to championship_teams_url(@championship) }
       format.json { head :no_content }
     end
   end

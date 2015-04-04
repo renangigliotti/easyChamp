@@ -44,7 +44,7 @@ class ChampionshipsController < ApplicationController
 
     respond_to do |format|
       if @championship.save
-        format.html { redirect_to championships_url, notice: 'Championship was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Championship was successfully created.' }
         format.json { render json: @championship, status: :created, location: @championship }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class ChampionshipsController < ApplicationController
 
     respond_to do |format|
       if @championship.update_attributes(params[:championship])
-        format.html { redirect_to championships_url, notice: 'Championship was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Championship was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -76,7 +76,7 @@ class ChampionshipsController < ApplicationController
     @championship.destroy
 
     respond_to do |format|
-      format.html { redirect_to championships_url }
+      format.html { redirect_to root_path }
       format.json { head :no_content }
     end
   end

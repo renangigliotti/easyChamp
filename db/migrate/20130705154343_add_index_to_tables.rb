@@ -15,6 +15,13 @@ class AddIndexToTables < ActiveRecord::Migration
     SQL
 
    execute <<-SQL
+      ALTER TABLE teams
+        ADD CONSTRAINT fk_teams_championships
+        FOREIGN KEY (championship_id)
+        REFERENCES championships(id)
+    SQL
+
+   execute <<-SQL
       ALTER TABLE games
         ADD CONSTRAINT fk_games_championships
         FOREIGN KEY (championship_id)

@@ -4,7 +4,12 @@
   <%= f.input :date_start %>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                championships_path, :class => 'btn' %>
+    <% if @championship.id.nil? %>
+	    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+	                championships_path, :class => 'btn' %>
+    <% else %>
+	    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+	                championships_path, :class => 'btn' %>
+    <% end %>
   </div>
 <% end %>

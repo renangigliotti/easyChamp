@@ -14,11 +14,11 @@
   <tbody>
     <% @teams.each do |team| %>
       <tr>
-        <td><%= link_to team.name, team_path(team) %></td>
+        <td><%= link_to team.name, championship_team_path(@championship, team) %></td>
         <td><%= image_tag(team.logo, alt: team.name, height: 30, width: 30) unless team.logo.empty? %></td>
         <td><%= team.abbreviation %></td>
-        <td><%= link_to t('.edit', :default => t("helpers.links.edit")), edit_team_path(team), :class => 'btn btn-mini' %>
-            <%= link_to t('.destroy', :default => t("helpers.links.destroy")), team_path(team), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-mini btn-danger' %>
+        <td><%= link_to t('.edit', :default => t("helpers.links.edit")), edit_championship_team_path(@championship, team), :class => 'btn btn-mini' %>
+            <%= link_to t('.destroy', :default => t("helpers.links.destroy")), championship_team_path(@championship, team), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-mini btn-danger' %>
         </td>
       </tr>
     <% end %>
@@ -28,5 +28,7 @@
 <%= will_paginate @games %>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_team_path,
+            new_championship_team_path(@championship),
             :class => 'btn btn-primary' %>
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              championship_path(@championship), :class => 'btn'  %>

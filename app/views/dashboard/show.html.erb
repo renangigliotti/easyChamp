@@ -1,21 +1,21 @@
 <div class="page-header">
-  <h1 align="center"><%= @champ.name %></h1>
+  <h1 align="center"><%= @championship.name %></h1>
 </div>
 <div class="navbar-inner">
   <br>
-  <% if @champ.rule_id == 3  %>
-    <%= render :partial => 'games', :locals => {:games => @games} %> 
+  <% if @championship.rule_id == 3  %>
+    <%= render :partial => 'games', :locals => {:championship => @championship, :games => @games} %> 
   <% else %>
     <div class="span7">
         <%= render :partial => 'ranking', :locals => {:ranking => @ranking} %>
     </div>
     <div class="span4">
-      <%= render :partial => 'games', :locals => {:games => @games} %> 
+      <%= render :partial => 'games', :locals => {:championship => @championship, :games => @games} %> 
       <center>
-        <% if @champ.rule_id != 3 && params[:phase] != '2' %>
+        <% if @championship.rule_id != 3 && params[:phase] != '2' %>
             <%= will_paginate @games %>
         <% end %>
-        <% if @champ.rule_id == 1 %>
+        <% if @championship.rule_id == 1 %>
           <div class="pagination">
             <ul>
               <li><%= link_to "Classificação" %></li>

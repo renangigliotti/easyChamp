@@ -62,13 +62,15 @@ ActiveRecord::Schema.define(:version => 20130707081246) do
   add_index "rules", ["id"], :name => "index_rules_on_id"
 
   create_table "teams", :force => true do |t|
+    t.integer  "championship_id"
     t.string   "name"
     t.string   "logo"
     t.string   "abbreviation"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
+  add_index "teams", ["championship_id"], :name => "fk_teams_championships"
   add_index "teams", ["id"], :name => "index_teams_on_id"
 
 end
