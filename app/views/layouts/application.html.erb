@@ -17,6 +17,12 @@
         <div class="row">
           <div class="span12">
             <%= bootstrap_flash %>
+            <div id="user_nav">
+              <% if user_signed_in? %>
+                Logado como <%= current_user.email %>. Não é você ?
+                <%= link_to "Sair", destroy_user_session_path, :method => :delete, :class => 'btn btn-danger'%>
+              <% end %>
+            </div>            
             <%= yield %>
           </div>
         </div><!--/row-->

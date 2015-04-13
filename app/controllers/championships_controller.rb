@@ -1,8 +1,7 @@
 class ChampionshipsController < ApplicationController
-  # GET /championships
-  # GET /championships.json
+
   def index
-    @championships = Championship.where("").paginate(:page => params[:page], :per_page => 15)
+    @championships = current_user.championships.paginate(:page => params[:page], :per_page => 15)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,10 +9,8 @@ class ChampionshipsController < ApplicationController
     end
   end
 
-  # GET /championships/1
-  # GET /championships/1.json
   def show
-    @championship = Championship.find(params[:id])
+    @championship = current_user.championships.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,8 +18,6 @@ class ChampionshipsController < ApplicationController
     end
   end
 
-  # GET /championships/new
-  # GET /championships/new.json
   def new
     @championship = Championship.new
 
@@ -32,19 +27,18 @@ class ChampionshipsController < ApplicationController
     end
   end
 
-  # GET /championships/1/edit
   def edit
-    @championship = Championship.find(params[:id])
+    @championship = current_user.championships.find(params[:id])
   end
 
-  # POST /championships
-  # POST /championships.json
   def create
     @championship = Championship.new(params[:championship])
 
     respond_to do |format|
       if @championship.save
-        format.html { redirect_to root_path, notice: 'Championship was successfully created.' }
+        current_user.championships <<  @championship
+
+        format.html { redirect_to championship_path(@championship), notice: 'Championship was successfully created.' }
         format.json { render json: @championship, status: :created, location: @championship }
       else
         format.html { render action: "new" }
@@ -53,14 +47,12 @@ class ChampionshipsController < ApplicationController
     end
   end
 
-  # PUT /championships/1
-  # PUT /championships/1.json
   def update
-    @championship = Championship.find(params[:id])
+    @championship = current_user.championships.find(params[:id])
 
     respond_to do |format|
       if @championship.update_attributes(params[:championship])
-        format.html { redirect_to root_path, notice: 'Championship was successfully updated.' }
+        format.html { redirect_to championship_path(@championship), notice: 'Championship was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -69,14 +61,12 @@ class ChampionshipsController < ApplicationController
     end
   end
 
-  # DELETE /championships/1
-  # DELETE /championships/1.json
   def destroy
-    @championship = Championship.find(params[:id])
+    @championship = current_user.championships.find(params[:id])
     @championship.destroy
 
     respond_to do |format|
-      format.html { redirect_to root_path }
+      format.html { redirect_to championships_path }
       format.json { head :no_content }
     end
   end

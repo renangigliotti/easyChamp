@@ -3,8 +3,13 @@
   <%= f.input :rule_id, collection: Rule.all, prompt: "Select your rule" %>
   <%= f.input :date_start %>
   <div class="form-actions">
-    <%= link_to t('.back', :default => t("helpers.links.back")),
-                championships_path, :class => 'btn' %>
+  	<%if @championship.id.nil? %>
+	    <%= link_to t('.back', :default => t("helpers.links.back")),
+	                championships_path, :class => 'btn' %>
+    <% else %>
+	    <%= link_to t('.back', :default => t("helpers.links.back")),
+	                championship_path(@championship), :class => 'btn' %>
+    <% end %>
     <%= f.button :submit, :class => 'btn-primary' %>
   </div>
 <% end %>

@@ -1,8 +1,8 @@
 class DashboardController < ApplicationController
   
   def show
-  	@championship = Championship.find(params[:championship_id])
-    
+  	@championship = current_user.championships.find(params[:championship_id])
+
     phase = params[:phase].to_i
     if phase == 0
       phase = 1
@@ -11,19 +11,17 @@ class DashboardController < ApplicationController
     if @championship.rule_id == 3
       @games = @championship.games.find_games_playoffs(@championship)
       @games = @championship.games
-    else 
-      if phase == 2
-        @games = @championship.games.find_games_playoffs(@championship)
-      else
-        @games = @championship.games.find_games_perpage(@championship, params[:page])
-      end
-
+    elsif phase == 2
+      @games = @championship.games.find_games_playoffs(@championship)
+      @ranking = Ranking.buildRanking(@championship)
+    else
+      @games = @championship.games.find_games_perpage(@championship, params[:page])
       @ranking = Ranking.buildRanking(@championship)
     end
   end
 
   def updategame
-    @championship = Championship.find(params[:championship_id])
+    @championship = current_user.championships.find(params[:championship_id])
     
     @game = @championship.games.find(params[:game_id])
     @game.placar1 = params[:placar1]

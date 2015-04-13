@@ -1,8 +1,17 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :loadChampionships
+  before_filter :authenticate_user!
 
-  def loadChampionships
-  	@championships = Championship.all
+  def after_sign_in_path_for(resource)
+    championships_path
   end
+
+  def after_update_path_for(resource)
+  	championships_path
+  end
+
+  def after_sign_up_path_for(resource)
+    championships_path
+  end
+
 end

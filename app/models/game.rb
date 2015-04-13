@@ -7,10 +7,12 @@ class Game < ActiveRecord::Base
   belongs_to :championship
 
   def self.find_games_perpage(championship, page)
-    stages = Game.select("DISTINCT games.stage").where(:championship_id => championship.id, :phase_id => 1)
-    pages = Game.where(:championship_id => championship.id, :stage => stages[0].stage).count
+    @championship = championship
     
-    return Game.where(:championship_id => championship.id, :phase_id => 1).order("games.stage").paginate(:page => page, :per_page => pages)
+    stages = @championship.games.where(phase_id: 1).select("distinct stage")
+    pages = @championship.games.where(stage: stages[0].stage).count
+    
+    @games = @championship.games.where(:phase_id => 1).order(:stage).paginate(:page => page, :per_page => pages)
   end
 
   def self.find_games_playoffs(championship)
@@ -18,18 +20,16 @@ class Game < ActiveRecord::Base
 
     buildPlayoffs
 
-    return @games = Game.where(:championship_id => @championship.id, :phase_id => 2)
+    @games = @championship.games.where(phase_id: 2)
   end
 
   def self.buildPlayoffs
-    games = Game.where(:championship_id => @championship.id, :phase_id => 2).order(:id)
-
-    games.each do |g|
+    @championship.games.where(phase_id: 2).order(:id).each do |g|
       if (g.duel2.include? "A") || (g.duel2.include? "B") || (g.duel2.include? "C") || (g.duel2.include? "D") || (g.duel2.include? "E") || (g.duel2.include? "F") || (g.duel2.include? "G") || (g.duel2.include? "H") || (g.duel2.include? "I") || (g.duel2.include? "J") || (g.duel2.include? "K") || (g.duel2.include? "L") || (g.duel2.include? "M") 
 
-        game = Game.find(g.id)
+        game = @championship.games.find(g.id)
 
-        count = Game.where(:championship_id => @championship.id, :phase_id => 1, :groups => g.duel1[1], :placar1 => nil, :placar2 => nil).count
+        count = @championship.games.where(phase_id: 1, groups: g.duel1[1], placar1: nil, placar2: nil).count
         if count > 0
           game.team1_id = nil
           game.team2_id = nil
@@ -39,7 +39,7 @@ class Game < ActiveRecord::Base
           next
         end
 
-        count = Game.where(:championship_id => @championship.id, :phase_id => 1, :groups => g.duel2[1], :placar1 => nil, :placar2 => nil).count
+        count = @championship.games.where(:phase_id => 1, :groups => g.duel2[1], :placar1 => nil, :placar2 => nil).count
         if count > 0
           game.team1_id = nil
           game.team2_id = nil
@@ -54,44 +54,48 @@ class Game < ActiveRecord::Base
         game.team2_id = self.find_team(ranking, g.duel2[0], g.duel2[1])
         game.save
       else
-        game = Game.find(g.id)
+        game = @championship.games.find(g.id)
 
-        if g.duel1.to_i < 0
-          duel1 = g.duel1.to_i * -1
-        else
-          duel1 = g.duel1
+        if (! g.duel1.empty?)
+          if g.duel1.to_i < 0
+            duel1 = g.duel1.to_i * -1
+          else
+            duel1 = g.duel1
+          end
+
+          game1 = @championship.games.find(duel1)
+          if game1.placar1.nil? || game1.placar2.nil?
+            game.placar1 = nil
+            game.placar2 = nil
+            game.team1_id = nil
+          end
+
+          if g.duel1.to_i < 0
+            game.team1_id = self.find_team_loser(game1)
+          else
+            game.team1_id = self.find_team_victory(game1)
+          end          
         end
 
-        game1 = Game.find(duel1)
-        if game1.placar1.nil? || game1.placar2.nil?
-          game.placar1 = nil
-          game.placar2 = nil
-          game.team1_id = nil
-        end
+        if (! g.duel2.empty?)
+          if g.duel2.to_i < 0
+            duel2 = g.duel2.to_i * -1
+          else
+            duel2 = g.duel2
+          end
 
-        if g.duel2.to_i < 0
-          duel2 = g.duel2.to_i * -1
-        else
-          duel2 = g.duel2
-        end
+          game2 = @championship.games.find(duel2)
+          if game2.placar1.nil? || game2.placar2.nil?
+            game.placar1 = nil
+            game.placar2 = nil
+            game.team2_id = nil
+          end
 
-        game2 = Game.find(duel2)
-        if game2.placar1.nil? || game2.placar2.nil?
-          game.placar1 = nil
-          game.placar2 = nil
-          game.team2_id = nil
-        end
-
-        if g.duel1.to_i < 0
-          game.team1_id = self.find_team_loser(game1)
-        else
-          game.team1_id = self.find_team_victory(game1)
-        end
-
-        if g.duel2.to_i < 0
-          game.team2_id = self.find_team_loser(game2)
-        else
-          game.team2_id = self.find_team_victory(game2)
+          if g.duel2.to_i < 0
+            game.team2_id = self.find_team_loser(game2)
+          else
+            game.team2_id = self.find_team_victory(game2)
+          end          
         end
 
         game.save

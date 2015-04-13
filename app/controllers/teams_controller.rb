@@ -1,8 +1,7 @@
 class TeamsController < ApplicationController
-  # GET /teams
-  # GET /teams.json
+
   def index
-    @championship = Championship.find(params[:championship_id])
+    @championship = current_user.championships.find(params[:championship_id])
     @teams = @championship.teams.where("").paginate(:page => params[:page], :per_page => 15)
 
     respond_to do |format|
@@ -11,10 +10,8 @@ class TeamsController < ApplicationController
     end
   end
 
-  # GET /teams/1
-  # GET /teams/1.json
   def show
-    @championship = Championship.find(params[:championship_id])
+    @championship = current_user.championships.find(params[:championship_id])
     @team = @championship.teams.find(params[:id])
 
     respond_to do |format|
@@ -23,10 +20,8 @@ class TeamsController < ApplicationController
     end
   end
 
-  # GET /teams/new
-  # GET /teams/new.json
   def new
-    @championship = Championship.find(params[:championship_id])
+    @championship = current_user.championships.find(params[:championship_id])
     @team = @championship.teams.build
     load_logos
 
@@ -36,17 +31,14 @@ class TeamsController < ApplicationController
     end
   end
 
-  # GET /teams/1/edit
   def edit
-    @championship = Championship.find(params[:championship_id])
+    @championship = current_user.championships.find(params[:championship_id])
     @team = @championship.teams.find(params[:id])
     load_logos
   end
 
-  # POST /teams
-  # POST /teams.json
   def create
-    @championship = Championship.find(params[:championship_id])
+    @championship = current_user.championships.find(params[:championship_id])
     @team = @championship.teams.build(params[:team])
 
     respond_to do |format|
@@ -60,10 +52,8 @@ class TeamsController < ApplicationController
     end
   end
 
-  # PUT /teams/1
-  # PUT /teams/1.json
   def update
-    @championship = Championship.find(params[:championship_id])
+    @championship = current_user.championships.find(params[:championship_id])
     @team = @championship.teams.find(params[:id])
 
     respond_to do |format|
@@ -77,10 +67,8 @@ class TeamsController < ApplicationController
     end
   end
 
-  # DELETE /teams/1
-  # DELETE /teams/1.json
   def destroy
-    @championship = Championship.find(params[:championship_id])
+    @championship = current_user.championships.find(params[:championship_id])
     @team = destroy.teams.find(params[:id])
     @team.destroy
 

@@ -1,5 +1,9 @@
 RenanCodeCom::Application.routes.draw do
-  root :to => 'championships#index'
+  root :to => 'home#index'
+  
+  get "home/index"
+
+  devise_for :users
   
   resources :championships do
   	resources :games

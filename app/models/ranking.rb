@@ -10,25 +10,26 @@ class Ranking
   	false
   end
 
-  def self.buildRanking(champ)
+  def self.buildRanking(championship)
     teams = Game.find_by_sql("SELECT DISTINCT team.team_id, team.team_name, team.team_logo, team.groups
                                 FROM (SELECT DISTINCT games.team1_id AS team_id, teams.name as team_name, teams.logo as team_logo, games.groups
                                         FROM games, teams
-                                       WHERE games.championship_id = " + champ.id.to_s + "
+                                       WHERE games.championship_id = " + championship.id.to_s + "
                                          AND games.phase_id = " + 1.to_s + "
                                          AND teams.id = games.team1_id
                                       UNION
                                       SELECT DISTINCT games.team2_id AS team_id, teams.name as team_name, teams.logo as team_logo, games.groups
                                         FROM games, teams
-                                       WHERE games.championship_id = " + champ.id.to_s + "
+                                       WHERE games.championship_id = " + championship.id.to_s + "
                                          AND games.phase_id = " + 1.to_s + "
                                          AND teams.id = games.team2_id) team
                                ORDER BY team.groups, team.team_name, team.team_id")
+    #Rails.logger.debug("Teams: #{teams.count}")
     
     ranking = Array.new
     teams.each do |t|
       rank = Ranking.new
-      rank.rule_id = champ.rule_id
+      rank.rule_id = championship.rule_id
       rank.team_id = t.team_id
       rank.team_name = t.team_name
       rank.team_logo = t.team_logo
@@ -45,7 +46,8 @@ class Ranking
       ranking << rank
     end
 
-    games = Game.where("games.championship_id = ? AND games.placar1 IS NOT NULL AND games.placar2 IS NOT NULL AND games.phase_id = ?", champ.id, 1)
+    games = championship.games.where("phase_id = ? AND placar1 IS NOT NULL AND placar2 IS NOT NULL", 1)
+
     games.each do |g|
       r1 = find_team(ranking, g.team1_id)
       r2 = find_team(ranking, g.team2_id)
@@ -86,7 +88,7 @@ class Ranking
     games = ranking
     ranking = Array.new
 
-    groups = Game.find_by_sql("SELECT DISTINCT games.groups FROM games WHERE games.championship_id = " + champ.id.to_s)
+    groups = championship.games.select("DISTINCT groups")
     groups.each do |gr|
       for i in 1..games.count + 1
         games.each do |g|

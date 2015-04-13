@@ -17,8 +17,12 @@
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               championships_path, :class => 'btn'  %>
+  <%= link_to glyph(:edit) + ' Editar',  
+              edit_championship_path(@championship), :class => 'btn', :title => 'Editar' %>
+   <%= link_to glyph(:trash) + 'Excluir', championship_path(@championship), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger', :title => 'Remover' %>              
   <%= link_to t('.teams', :default => t("helpers.links.teams")),
               championship_teams_path(@championship), :class => 'btn btn-success' %>
   <%= link_to t('.games', :default => t("helpers.links.games")),
               championship_games_path(@championship), :class => 'btn btn-success' %>
+
 </div>

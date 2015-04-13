@@ -20,5 +20,3 @@ rails g bootstrap:themed games -f
 
 #rails g devise:install
 #rails g devise:views
-
-#Teste de alteração do Paulo
