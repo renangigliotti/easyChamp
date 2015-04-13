@@ -7,6 +7,7 @@ gem 'jquery-rails'
 gem 'simple_form'
 gem 'will_paginate', '~> 3.0.6'
 gem 'devise'
+gem 'foreigner'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
