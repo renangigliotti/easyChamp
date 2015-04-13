@@ -82,7 +82,7 @@ class TeamsController < ApplicationController
 
   def load_logos
     @logos = Array.new
-    Dir.glob("app/assets/images/*.png").each do |l|
+    Dir.glob("#{Rails.root}/app/assets/images/*.png").each do |l|
       @logos << l.split('/').last
     end
     @logos.sort!
