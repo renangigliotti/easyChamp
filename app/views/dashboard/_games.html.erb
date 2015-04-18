@@ -3,9 +3,9 @@
   <div class="row">
     <div class="span4">
       <% if g.stage != stage %>
-        <center><h6> <%= g.stage %> </h6></center>
+        <h6 style="text-align: center;"> <%= g.stage %> </h6>
       <% end %>
-      <div class="well sidebar-nav">
+      <div class="highlight">
         <%= form_tag(championship_dashboard_path(championship), :method => "post", :class => "form-inline") do %>
           <%= hidden_field_tag(:game_id, g.id) %> 
           <%= g.id.to_s %> |
@@ -25,6 +25,7 @@
           <%= button_tag("Ok", :class => 'btn btn-primary') %>
         <% end %>
       </div>
+      <hr>
     </div>
   </div>
   <% stage = g.stage %>

@@ -29,8 +29,8 @@
       <tbody>
   <% end %>
   <tr>
-    <td><%= r.position %></td>
-    <td width="60%"><%= r.team_name %></td>
+    <td><%= r.position %>º</td>
+    <td width="60%"><%= image_tag(r.team_logo, alt: r.team_name, height: 21, width: 21) %>&nbsp;&nbsp;<%= r.team_name %></td>
     <td><%= r.points %></td>
     <td><%= r.games %></td>
     <td><%= r.victory %></td>
